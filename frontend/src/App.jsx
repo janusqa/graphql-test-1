@@ -1,15 +1,33 @@
 import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+    gql,
+} from '@apollo/client';
 import './App.css';
 
 function App() {
     const [health, setHealth] = useState('');
 
+    const client = new ApolloClient({
+        uri: 'http://localhost:4000/graphql',
+        cache: new InMemoryCache(),
+    });
+
     useEffect(function () {
-        fetch('http://localhost:4000/health')
-            .then((response) => response.json())
-            .then((data) => setHealth(JSON.stringify(data)));
+        client
+            .query({
+                query: gql`
+                    query {
+                        books {
+                            title
+                            author
+                        }
+                    }
+                `,
+            })
+            .then((result) => setHealth(JSON.stringify(result)));
     }, []);
 
     return <div className="App">{health}</div>;

@@ -1,27 +1,27 @@
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { expressMiddleware } from '@apollo/server/express4';
+import http from 'http';
+import { RESTDataSource } from '@apollo/datasource-rest';
 
-const books = [
-    {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
-    },
-    {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-    },
-];
+class BooksAPI extends RESTDataSource {
+    baseURL = 'http://localhost:3500';
+
+    async getBooks() {
+        return await this.get('/books');
+    }
+}
 
 const resolvers = {
     Query: {
-        books: () => books,
+        books: async (_, __, { dataSources }) =>
+            dataSources.booksAPI.getBooks(),
     },
 };
 
 const typeDefs = `
-
   type Book {
     title: String
     author: String
@@ -33,12 +33,13 @@ const typeDefs = `
 `;
 
 const app = express();
+const httpServer = http.createServer(app);
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
-
 await server.start();
 
 const corsOptions = {
@@ -61,12 +62,19 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/graphql', expressMiddleware(server));
+app.use(
+    '/graphql',
+    expressMiddleware(server, {
+        context: async () => {
+            const { cache } = server;
+            return {
+                dataSources: {
+                    booksAPI: new BooksAPI({ cache }),
+                },
+            };
+        },
+    })
+);
 
-await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
-
+await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 console.log(`🚀 Server ready at http://localhost:4000/graphql`);
-
-app.get('/health', (req, res) => {
-    res.status(200).json({ message: 'Okay!' });
-});
