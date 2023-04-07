@@ -10,7 +10,7 @@ class BooksAPI extends RESTDataSource {
     baseURL = 'http://localhost:8080';
 
     async getBooks() {
-        return await this.get('/books');
+        return await this.get('/v1/books');
     }
 }
 
