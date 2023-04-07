@@ -1,1 +1,35 @@
-node_modules
+**/node_modules
+
+backend-rest-springboot/demo/HELP.md
+backend-rest-springboot/demo/target/
+!backend-rest-springboot/demo/**/.mvn/wrapper/maven-wrapper.jar
+!backend-rest-springboot/demo/**/src/main/**/target/
+!backend-rest-springboot/demo/**/src/test/**/target/
+
+### STS ###
+backend-rest-springboot/demo/.apt_generated
+backend-rest-springboot/demo/.classpath
+backend-rest-springboot/demo/.factorypath
+backend-rest-springboot/demo/.project
+backend-rest-springboot/demo/.settings
+backend-rest-springboot/demo/.springBeans
+backend-rest-springboot/demo/.sts4-cache
+
+### IntelliJ IDEA ###
+backend-rest-springboot/demo/**/.idea
+backend-rest-springboot/demo/**/*.iws
+backend-rest-springboot/demo/**/*.iml
+backend-rest-springboot/demo/**/*.ipr
+
+### NetBeans ###
+backend-rest-springboot/demo/**/nbproject/private/
+backend-rest-springboot/demo/**/nbbuild/
+backend-rest-springboot/demo/**/dist/
+backend-rest-springboot/demo/**/nbdist/
+backend-rest-springboot/demo/**/.nb-gradle/
+backend-rest-springboot/demo/**/build/
+!backend-rest-springboot/demo/**/src/main/**/build/
+!backend-rest-springboot/demo/**/src/test/**/build/
+
+### VS Code ###
+backend-rest-springboot/demo/.vscode/

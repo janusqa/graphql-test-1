@@ -7,7 +7,7 @@ import http from 'http';
 import { RESTDataSource } from '@apollo/datasource-rest';
 
 class BooksAPI extends RESTDataSource {
-    baseURL = 'http://localhost:3500';
+    baseURL = 'http://localhost:8080';
 
     async getBooks() {
         return await this.get('/books');
