@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import './App.css';
 
 function App() {
-    const [health, setHealth] = useState('');
+    const [books, setBooks] = useState([]);
 
     const client = new ApolloClient({
         uri: 'http://localhost:4000/graphql',
@@ -22,10 +22,18 @@ function App() {
                     }
                 `,
             })
-            .then((result) => setHealth(JSON.stringify(result)));
+            .then((result) => setBooks(result.data.books));
     }, []);
 
-    return <div className="App">{health}</div>;
+    return (
+        <ul className="App">
+            {books.map((book) => (
+                <li key={book.title}>
+                    {book.title} - {book.author}
+                </li>
+            ))}
+        </ul>
+    );
 }
 
 export default App;
