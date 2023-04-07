@@ -5,5 +5,6 @@
 
 open browser should see output like (http://localhost:3000)
 ```
-{"data":{"books":[{"__typename":"Book","title":"The Awakening","author":"Kate Chopin"},{"__typename":"Book","title":"City of Glass","author":"Paul Auster"}]},"loading":false,"networkStatus":7}
+- The Awakening - Kate Chopin
+- City of Glass - Paul Auster
 ```
