@@ -3,7 +3,7 @@
    
 2. cd ./backend-graphql 
    1. npm i
-   2. npm rundev
+   2. npm run dev
    
 3. cd ./fronend 
    1. npm i
