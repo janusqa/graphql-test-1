@@ -1,4 +1,5 @@
-1. cd ./backend-rest -> npx json-server -p 3500 -w data/db.json
+1. cd ./backend-rest 
+   1. npx json-server -p 3500 -w data/db.json
    
 2. cd ./backend-graphql 
    1. npm i
